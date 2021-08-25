@@ -18,6 +18,6 @@ class CommentController extends Controller
             'body'    => request('body')
         ]);
 
-        return back();
+        return back()->with('success', 'Your comment has been published.');
     }
 }

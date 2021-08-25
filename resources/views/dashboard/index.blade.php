@@ -23,18 +23,22 @@
                     <!-- Single Cool Fact -->
                     <div class="col-12 col-sm-6 col-lg-4">
                         <div class="single-cool-fact">
-                            <img src="img/core-img/hamburger.png" alt="">
-                            <h3><span class="counter">{{ $categoriesCount }}</span></h3>
-                            <h6>{{ Str::plural('Category', $categoriesCount) }}</h6>
+                            <a href="{{ route('admin.categories') }}">
+                                <img src="img/core-img/categories.png" alt="">
+                                <h3><span class="counter">{{ $categoriesCount }}</span></h3>
+                                <h6>{{ Str::plural('Category', $categoriesCount) }}</h6>
+                            </a>
                         </div>
                     </div>
 
                     <!-- Single Cool Fact -->
                     <div class="col-12 col-sm-6 col-lg-4">
                         <div class="single-cool-fact">
-                            <img src="img/core-img/rib.png" alt="">
-                            <h3><span class="counter">{{ $usersCount }}</span></h3>
-                            <h6>{{ Str::plural('User', $usersCount) }}</h6>
+                            <a href="{{ route('admin.users') }}">
+                                <img src="img/core-img/users.png" alt="">
+                                <h3><span class="counter">{{ $usersCount }}</span></h3>
+                                <h6>{{ Str::plural('User', $usersCount) }}</h6>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        $categories = ['Dishes', 'Snacks', 'Meal', 'Family', 'Kids'];
+        $categories = ['Uncategorized', 'Dishes', 'Snacks', 'Meal', 'Family', 'Kids'];
 
         foreach ($categories as $category) {
             \App\Models\Category::create([

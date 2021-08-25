@@ -48,10 +48,6 @@
                         <span>"</span>
                         <h4>Nothing is better than going home to family and eating good food and relaxing</h4>
                         <p>John Smith</p>
-                        <div class="date-comments d-flex justify-content-between">
-                            <div class="date">January 04, 2018</div>
-                            <div class="comments">2 Comments</div>
-                        </div>
                     </div>
                 </div>
 

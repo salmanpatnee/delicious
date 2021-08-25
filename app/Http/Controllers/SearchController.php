@@ -21,11 +21,12 @@ class SearchController extends Controller
 
             $q = $request['q'];
 
-            $recipes = Recipe::where('title', 'LIKE', '%' . $q . '%')
-                ->orWhere('body', 'LIKE', '%' . $q . '%')->latest()->paginate(20);
-
             return view('search.index', [
-                'recipes' => $recipes
+                'recipes' => Recipe::where('title', 'LIKE', '%' . $q . '%')
+                    ->orWhere('body', 'LIKE', '%' . $q . '%')
+                    ->latest()
+                    ->with('category')
+                    ->paginate(20)
             ]);
         }
     }

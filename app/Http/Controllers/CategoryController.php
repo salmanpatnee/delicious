@@ -10,10 +10,9 @@ class CategoryController extends Controller
 {
     public function index(Category $category)
     {
-
         return view('categories.index', [
             'category' => $category,
-            'recipes' => $category->recipes()->latest()->paginate(20)
+            'recipes' => $category->recipes()->latest()->with('category')->paginate(20)
         ]);
     }
 }

@@ -7,12 +7,13 @@
                 <div class="row h-100 align-items-center">
                     <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                         <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
-                            <h2 data-animation="fadeInUp" data-delay="300ms">Delicios Homemade Burger</h2>
-                            <p data-animation="fadeInUp" data-delay="700ms">Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Cras tristique nisl vitae luctus sollicitudin. Fusce consectetur
-                                sem eget dui tristique, ac posuere arcu varius.</p>
-                            <a href="#" class="btn delicious-btn" data-animation="fadeInUp" data-delay="1000ms">See
-                                Receipe</a>
+                            <h2 data-animation="fadeInUp" data-delay="300ms">Delicious Food Blog</h2>
+                            <p data-animation="fadeInUp" data-delay="700ms">A general food and cooking blog. We like to
+                                experiment and try all different types of cuisine and We have a passion for food
+                                photography and styling.</p>
+                            <a href="{{ route('recipes') }}" class="btn delicious-btn" data-animation="fadeInUp"
+                                data-delay="1000ms">See
+                                Recipes</a>
                         </div>
                     </div>
                 </div>

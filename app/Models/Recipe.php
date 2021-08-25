@@ -12,6 +12,15 @@ class Recipe extends Model
 
     protected $guarded = [];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('commentsCount', function ($builder) {
+            $builder->withCount('comments');
+        });
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -22,24 +31,15 @@ class Recipe extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function scopeFilter($query, array $filters)
+    public function getIngredients()
     {
-        if (isset($filters['search'])) {
+        return explode(',', $this->ingredients);
+    }
 
-            $search = $filters['search'];
+    public function getThumbnail($name = 'thumbnail')
+    {
+        $default = $name == 'thumbnail' ? 'r1.jpg' : 'bg5.jpg';
 
-            $query->where(function ($query) use ($search) {
-                $query->where('title', 'like', '%' . $search . '%')
-                    ->orWhere('body', 'like', '%' . $search . '%');
-            });
-        }
-
-        if (isset($filters['category'])) {
-
-            $category = $filters['category'];
-            $query->whereHas('category', function (Builder $query) use ($category) {
-                $query->where('slug', '=', $category);
-            });
-        }
+        return isset($this->$name) ? asset('storage/' . $this->$name) : "/img/bg-img/{$default}";
     }
 }

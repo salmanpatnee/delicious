@@ -12,9 +12,9 @@ class DashboardController extends Controller
     public function index()
     {
         return view('dashboard.index', [
-            'recipesCount' => Recipe::count(),
-            'categoriesCount' => Category::count(),
-            'usersCount' => User::count(),
+            'recipesCount'      => Recipe::count(),
+            'categoriesCount'   => Category::count(),
+            'usersCount'        => User::count(),
         ]);
     }
 }

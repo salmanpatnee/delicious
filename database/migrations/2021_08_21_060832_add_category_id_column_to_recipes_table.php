@@ -14,7 +14,7 @@ class AddCategoryIdColumnToRecipesTable extends Migration
     public function up()
     {
         Schema::table('recipes', function (Blueprint $table) {
-            $table->foreignId('category_id')->index();
+            $table->foreignId('category_id');
         });
     }
 

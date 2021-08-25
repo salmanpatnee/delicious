@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminRecipeController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
@@ -22,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [RecipeController::class, 'index'])->name('recipes.index');
+Route::get('/recipes', [RecipeController::class, 'recipes'])->name('recipes');
+
 Route::get('/recipes/{recipe:slug}', [RecipeController::class, 'show'])->name('recipes.show');
 
 Route::get('/categories/{category:slug}', [CategoryController::class, 'index'])->name('categories.index');
@@ -41,13 +45,25 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'can:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/admin/recipes/', [AdminRecipeController::class, 'index'])->name('admin.recipes');
     Route::get('/admin/recipes/create', [AdminRecipeController::class, 'create'])->name('admin.recipes.create');
     Route::post('/admin/recipes', [AdminRecipeController::class, 'store'])->name('admin.recipes.store');
-    // Route::get('/admin/recipes/edit/{recipe}', [AdminRecipeController::class, 'edit'])->name('admin.recipes.edit');
-    // Route::patch('/admin/recipes/{recipe}', [AdminRecipeController::class, 'update'])->name('admin.recipes.update');
-    // Route::delete('/admin/recipes/{recipe}', [AdminRecipeController::class, 'destroy'])->name('admin.recipes.destroy');
+    Route::get('/admin/recipes/edit/{recipe}', [AdminRecipeController::class, 'edit'])->name('admin.recipes.edit');
+    Route::patch('/admin/recipes/{recipe}', [AdminRecipeController::class, 'update'])->name('admin.recipes.update');
+    Route::delete('/admin/recipes/{recipe}', [AdminRecipeController::class, 'destroy'])->name('admin.recipes.destroy');
+
+    Route::get('/admin/categories/', [AdminCategoryController::class, 'index'])->name('admin.categories');
+    Route::get('/admin/categories/create', [AdminCategoryController::class, 'create'])->name('admin.categories.create');
+    Route::post('/admin/categories', [AdminCategoryController::class, 'store'])->name('admin.categories.store');
+    Route::get('/admin/categories/edit/{category}', [AdminCategoryController::class, 'edit'])->name('admin.categories.edit');
+    Route::patch('/admin/categories/{category}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
+    Route::delete('/admin/categories/{category}', [AdminCategoryController::class, 'destroy'])->name('admin.categories.destroy');
+
+    Route::get('/admin/users/', [AdminUserController::class, 'index'])->name('admin.users');
+    Route::get('/admin/users/edit/{user}', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+    Route::patch('/admin/users/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/admin/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
 });

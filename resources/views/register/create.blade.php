@@ -29,6 +29,11 @@
                                     placeholder="Password" required>
                                 <x-form.error name="password" />
                             </div>
+                            <div class="col-12">
+                                <small class="form-text text-muted">Already have an <a style="font-size:100%"
+                                        class="font-weight-normal"
+                                        href="{{ route('login') }}"><u>account?</u></a></small>
+                            </div>
                             <div class="col-12 text-center mb-2">
                                 <button class="btn delicious-btn mt-30" type="submit">Register</button>
                             </div>

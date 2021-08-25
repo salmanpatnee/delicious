@@ -1,17 +1,31 @@
 <x-layout>
     @section('styles')
         <style>
+            .single-preparation-step h4 {
+                color: #474747;
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 60px;
+                flex: 0 0 60px;
+                max-width: initial;
+                width: auto;
+                margin-bottom: 20px;
+            }
+
             .comment {
                 background-color: #F3F4F6;
                 border-radius: 15px;
                 border: 1px solid rgba(229, 231, 235, 1);
             }
 
+            .contact-form-area textarea.form-control {
+                height: 100px;
+            }
+
         </style>
     @endsection
     <!-- ##### Breadcumb Area Start ##### -->
     <div class="breadcumb-area bg-img bg-overlay"
-        style="background-image: url({{ asset('img/bg-img/breadcumb3.jpg') }});">
+        style="background-image: url({{ asset('img/bg-img/header-bg.jpg') }});">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -35,12 +49,12 @@
                             <select name="select1" id="select1">
                                 <option value="/">All Categories</option>
                                 @foreach ($categories as $category)
-                                    <option @click="console.log('Clicked')"
-                                        value="{{ route('categories.index', $category->slug) }}">
+                                    <option value="{{ route('categories.index', $category->slug) }}">
                                         {{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
+
                         <form action="/search">
                             <div class="col-12 col-lg-3">
                                 <input type="search" name="q" placeholder="Search Recipes">
@@ -60,7 +74,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="receipe-slider owl-carousel">
-                        <img src="{{ asset('img/bg-img/bg5.jpg') }}" alt="">
+                        <img src="{{ $recipe->getThumbnail('banner') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -101,77 +115,27 @@
                 <div class="row">
                     <div class="col-12 col-lg-8">
                         <!-- Single Preparation Step -->
-                        <div class="single-preparation-step d-flex">
+                        <div class="single-preparation-step ">
                             <p>{!! $recipe->body !!}</p>
 
-                            {{-- <h4>01.</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui.
-                                Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in
-                                iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus.
-                                Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                            </p> --}}
+
                         </div>
 
                     </div>
 
-                    <!-- Ingredients -->
-                    <div class="col-12 col-lg-4">
-                        <div class="ingredients">
-                            <h4>Ingredients</h4>
-
-                            <!-- Custom Checkbox -->
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">4 Tbsp (57 gr) butter</label>
-                            </div>
-
-                            <!-- Custom Checkbox -->
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                <label class="custom-control-label" for="customCheck2">2 large eggs</label>
-                            </div>
-
-                            <!-- Custom Checkbox -->
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                <label class="custom-control-label" for="customCheck3">2 yogurt containers granulated
-                                    sugar</label>
-                            </div>
-
-                            <!-- Custom Checkbox -->
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck4">
-                                <label class="custom-control-label" for="customCheck4">1 vanilla or plain yogurt, 170g
-                                    container</label>
-                            </div>
-
-                            <!-- Custom Checkbox -->
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck5">
-                                <label class="custom-control-label" for="customCheck5">2 yogurt containers unbleached
-                                    white flour</label>
-                            </div>
-
-                            <!-- Custom Checkbox -->
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck6">
-                                <label class="custom-control-label" for="customCheck6">1.5 yogurt containers
-                                    milk</label>
-                            </div>
-
-                            <!-- Custom Checkbox -->
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck7">
-                                <label class="custom-control-label" for="customCheck7">1/4 tsp cinnamon</label>
-                            </div>
-
-                            <!-- Custom Checkbox -->
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck8">
-                                <label class="custom-control-label" for="customCheck8">1 cup fresh blueberries </label>
+                    @if (count($recipe->getIngredients()))
+                        <!-- Ingredients -->
+                        <div class="col-12 col-lg-4">
+                            <div class="ingredients">
+                                <h4>Ingredients</h4>
+                                <ul>
+                                    @foreach ($recipe->getIngredients() as $ingredient)
+                                        <li>{{ $ingredient }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
 
                 <div class="row">
@@ -185,16 +149,12 @@
                 @include('partials.comment-form')
 
 
-                <div class="row">
-                    <div class="mt-5">
-                        <div class="d-flex">
-                            <div class="col-md-8">
-                                @foreach ($comments as $comment)
-                                    <x-comment :comment="$comment" />
-                                @endforeach
-                                {{ $comments->links() }}
-                            </div>
-                        </div>
+                <div class="row" id="comments">
+                    <div class="col-md-8 mt-5">
+                        @foreach ($comments as $comment)
+                            <x-comment :comment="$comment" />
+                        @endforeach
+                        {{ $comments->links() }}
                     </div>
                 </div>
             </div>

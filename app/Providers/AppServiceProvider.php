@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,5 +35,9 @@ class AppServiceProvider extends ServiceProvider
         View::share('categories',  $categories);
 
         Paginator::useBootstrap();
+
+        Gate::define('admin', function (User $user) {
+            return $user->username === 'admin';
+        });
     }
 }

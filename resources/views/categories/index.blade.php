@@ -1,9 +1,11 @@
 <x-layout>
     <x-recipe-listing heading="Category: {{ $category->name }}">
         <div class="row">
-            @foreach ($recipes as $recipe)
+            @forelse ($recipes as $recipe)
                 <x-recipe-card :recipe="$recipe" />
-            @endforeach
+            @empty
+                <p class="text-center">No recipes found in this category.</p>
+            @endforelse
         </div>
         <div class="row">
             {{ $recipes->links() }}

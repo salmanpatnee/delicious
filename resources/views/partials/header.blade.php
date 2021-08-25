@@ -9,7 +9,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title -->
-    <title>Delicious - Food Blog Template | Home</title>
+    <title>Delicious</title>
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('img/core-img/favicon.ico') }}">
@@ -34,14 +34,45 @@
             color: #1abc9c;
         }
 
-        .nice-select {
+        form.admin .nice-select {
             height: 50px;
             line-height: 30px;
         }
 
+        .ingredients ul li {
+            margin-bottom: 0;
+            padding-top: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #2f2f2f;
+            margin-bottom: 30px;
+        }
+
+        .btn-xs.delicious-btn {
+            min-width: auto;
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+            border-radius: 4px;
+            margin-top: .8em;
+        }
+
+        .single-small-receipe-area {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 1.5em;
+            margin-bottom: 3em;
+            padding-bottom: 1.5em;
+        }
+
+        .contact-form-area .form-control {
+            font-size: 16px;
+            font-style: normal;
+        }
+
     </style>
     @yield('styles')
-    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.2.4/cdn.js"></script>
 </head>
 
 <body>
@@ -60,7 +91,7 @@
             <div class="row">
                 <div class="col-12">
                     <form action="/search">
-                        <input type="search" name="q" placeholder="Type any keywords...">
+                        <input type="search" name="q" autofocus placeholder="Type any keywords...">
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>

@@ -19,7 +19,9 @@ class CreateRecipesTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('body');
+            $table->text('ingredients');
             $table->string('thumbnail')->nullable();
+            $table->string('banner')->nullable();
             $table->unsignedInteger('prep_time');
             $table->unsignedInteger('cook_time');
             $table->unsignedInteger('serves');
